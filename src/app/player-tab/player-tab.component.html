@@ -1,0 +1,19 @@
+<h3>
+    Name: {{name}}
+</h3>
+<h3>
+   vpip: {{vpip}}
+</h3>
+<h3>
+    pfr: {{pfr}}
+</h3>
+<h3>
+    profit: {{profit}}
+</h3>
+<button mat-button color="primary" (click)="graphProfit()">Graph Player Profit</button>
+
+
+
+<div id="chartDiv" *ngIf="isProfitActive">
+    <canvas id="profitGraph"></canvas>
+</div>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {Chart, BarElement, BarController, CategoryScale, Decimation, Filler, Legend, Title, Tooltip,registerables} from 'chart.js';
+import {Chart, registerables} from 'chart.js';
 Chart.register(...registerables);
 
 
@@ -37,18 +37,19 @@ export class ProfileTabComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   clickedRows = new Set<PeriodicElement>();
   selectedPlayer =  ELEMENT_DATA[0];
-
+  playerNames: string[] = [];
+  playerProfits: number[] = [];
   constructor() { }
 
   ngOnInit(): void {
-
+    this.displaySummary();
     var myChart = new Chart("myChartt", {
       type: 'bar',
       data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels: this.playerNames,
           datasets: [{
-              label: '# of Votes',
-              data: [-12, 19, 3, 5, 2, 3],
+              label: 'Total Player Profit',
+              data: this.playerProfits,
               backgroundColor: [
                   'rgba(255, 99, 132, 0.2)',
                   'rgba(54, 162, 235, 0.2)',
@@ -82,6 +83,12 @@ export class ProfileTabComponent implements OnInit {
   setPlayer(row: PeriodicElement){
     this.clickedRows.add(row);
     this.selectedPlayer = row;
+  }
+  displaySummary(){
+    for(let i = 0; i < this.dataSource.length; i++ ){
+      this.playerNames.push(this.dataSource[i].name);
+      this.playerProfits.push(this.dataSource[i].profit);
+    }
   }
 
 }
